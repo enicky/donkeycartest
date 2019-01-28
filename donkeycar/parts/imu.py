@@ -47,10 +47,10 @@ class Mpu6050:
         self.on = False
 
 
-class Bno055:
-    def __init__(self, serial_port='/dev/input/serial0', rst=18, poll_delay=0.0166):
+class Bno055Imu:
+    def __init__(self, serial_port='/dev/serial0', rst=18, poll_delay=0.0166):
         print("BNO Constructor {} => rst = {}".format(serial_port, rst))
-        self.bno = BNO055(serial_port=serial_port, rst = rst)
+        self.bno = BNO055.BNO055(serial_port=serial_port, rst = rst)
         self.accel = {'x': 0., 'y': 0., 'z': 0.}
         self.gyro = {'x': 0., 'y': 0., 'z': 0.}
         self.temp = 0.
@@ -68,7 +68,7 @@ class Bno055:
         try:
             accx, accy, accz = self.bno.read_accelerometer()
             gyrx, gyry, gyrz = self.bno.read_gyroscope()
-            self.temp = self.bno.read_temp
+            self.temp = self.bno.read_temp()
 
             self.accel['x'] = accx
             self.accel['y'] = accy
@@ -96,9 +96,9 @@ class Bno055:
 if __name__ == "__main__":
     iter = 0
 #    p = Mpu6050(
-    bno = Bno055()
+    bno = Bno055Imu()
     while iter < 100:
-        data = p.run()
+        data = bno.run()
         print(data)
         time.sleep(0.1)
         iter += 1
