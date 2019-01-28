@@ -21,7 +21,7 @@ import donkeycar as dk
 from donkeycar.parts.transform import Lambda
 from donkeycar.parts.datastore import TubHandler, TubGroup
 from donkeycar.parts.controller import LocalWebController, JoystickController
-from donkeycar.parts.imu import Mpu6050
+from donkeycar.parts.imu import  Bno055Imu
 import numpy as np
 from donkeycar.parts.throttle_filter import ThrottleFilter
 from donkeycar.parts.behavior import BehaviorPart
@@ -255,9 +255,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #IMU
     if cfg.HAVE_IMU:
-        imu = Mpu6050()
-        V.add(imu, outputs=['imu/acl_x', 'imu/acl_y', 'imu/acl_z',
-            'imu/gyr_x', 'imu/gyr_y', 'imu/gyr_z'], threaded=True)
+        bno = Bno055Imu()
+        V.add(bno, outputs=['imu/acc_x', 'imu/acc_y', 'imu/acc_z',
+                            'imu/gyro_x','imu/gyro_y','imu/gyro_z', 'imu/temp'], threaded=True)
+        #imu = Mpu6050()
+        #V.add(imu, outputs=['imu/acl_x', 'imu/acl_y', 'imu/acl_z',
+        #    'imu/gyr_x', 'imu/gyr_y', 'imu/gyr_z'], threaded=True)
 
     #Behavioral state
     if cfg.TRAIN_BEHAVIORS:

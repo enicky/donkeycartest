@@ -50,7 +50,7 @@ class Mpu6050:
 class Bno055Imu:
     def __init__(self, serial_port='/dev/serial0', rst=18, poll_delay=0.0166):
         print("BNO Constructor {} => rst = {}".format(serial_port, rst))
-        self.bno = BNO055.BNO055(serial_port=serial_port, rst = rst)
+        self.bno = BNO055.BNO055(serial_port=serial_port, rst=rst)
         self.accel = {'x': 0., 'y': 0., 'z': 0.}
         self.gyro = {'x': 0., 'y': 0., 'z': 0.}
         self.temp = 0.
