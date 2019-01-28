@@ -11,7 +11,7 @@ from donkeycar.parts.network import ZMQValueSub
 from donkeycar.parts.transform import Lambda
 
 V = dk.vehicle.Vehicle()
-ip = "localhost"
+ip = "192.168.1.132"
 w = 640
 h = 480
 d = 3
@@ -35,7 +35,8 @@ def condition_values(obj):
     for val in vals:
         coord = (x, val * (h / 4.) + (h / 2.))
         color = [0, 0, 0]
-        color[i] = 1
+        if i < 3:
+            color[i] = 1
         i += 1
         ret.append( (coord, color) )
 

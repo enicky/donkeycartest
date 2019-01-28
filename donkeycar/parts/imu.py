@@ -45,12 +45,17 @@ class Mpu6050:
         self.on = False
 
 
+class Bno055:
+    def __init__(self, serial_port='/dev/input/serial0', rst=18):
+        print(f"BNO Constructor {serial_port} => rst = {rst}")
+
+
 if __name__ == "__main__":
     iter = 0
     p = Mpu6050()
-    while iter < 100:
-        data = p.run()
-        print(data)
-        time.sleep(0.1)
-        iter += 1
-     
+#    bno = Bno055()
+#    while iter < 100:
+#        data = p.run()
+#        print(data)
+#        time.sleep(0.1)
+#        iter += 1

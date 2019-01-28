@@ -467,7 +467,7 @@ if __name__ == "__main__":
 
     #test_pub_sub(ip)
     #test_udp_broadcast(ip)
-    #test_mqtt_pub_sub(ip)
+    #test_mqtt_pub_sub(ip)test_pub_sub
     test_tcp_client_server(ip)
     
 
