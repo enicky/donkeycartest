@@ -47,7 +47,7 @@ class Mpu6050:
 
 class Bno055:
     def __init__(self, serial_port='/dev/input/serial0', rst=18):
-        print(f"BNO Constructor {serial_port} => rst = {rst}")
+        print(f"BNO Constructor % => rst = %" % serial_port, rst)
 
 
 if __name__ == "__main__":
