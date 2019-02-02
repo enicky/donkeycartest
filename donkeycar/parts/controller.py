@@ -52,6 +52,7 @@ class Joystick(object):
         buf = array.array('B', [0])
         ioctl(self.jsdev, 0x80016a11, buf) # JSIOCGAXES
         self.num_axes = buf[0]
+        print('num axes : ', self.num_axes)
 
         buf = array.array('B', [0])
         ioctl(self.jsdev, 0x80016a12, buf) # JSIOCGBUTTONS
@@ -65,6 +66,7 @@ class Joystick(object):
             axis_name = self.axis_names.get(axis, 'unknown(0x%02x)' % axis)
             self.axis_map.append(axis_name)
             self.axis_states[axis_name] = 0.0
+            print('axis','0x%03x' % axis, 'name',axis_name)
 
         # Get the button map.
         buf = array.array('H', [0] * 200)
@@ -74,8 +76,10 @@ class Joystick(object):
             btn_name = self.button_names.get(btn, 'unknown(0x%03x)' % btn)
             self.button_map.append(btn_name)
             self.button_states[btn_name] = 0
-            #print('btn', '0x%03x' % btn, 'name', btn_name)
+            print('btn', '0x%03x' % btn, 'name', btn_name)
 
+        print('finished')
+        self.show_map()
         return True
 
 
@@ -121,8 +125,10 @@ class Joystick(object):
 
             if typev & 0x02:
                 axis = self.axis_map[number]
+                print('axis triggered ... ', axis)
                 if axis:
                     fvalue = value / 32767.0
+                    print('fvalue : ', fvalue)
                     self.axis_states[axis] = fvalue
                     axis_val = fvalue
 
@@ -516,12 +522,12 @@ class JoystickController(object):
 
     def set_steering(self, axis_val):
         self.angle = self.steering_scale * axis_val
-        #print("angle", self.angle)
+        print("angle", self.angle)
 
     def set_throttle(self, axis_val):
         #this value is often reversed, with positive value when pulling down
         self.throttle = (self.throttle_dir * axis_val * self.throttle_scale)
-        #print("throttle", self.throttle)
+        print("throttle", self.throttle)
         self.on_throttle_changes()
 
     def toggle_manual_recording(self):
@@ -710,7 +716,7 @@ class PS3JoystickController(JoystickController):
 
         self.axis_trigger_map = {
             'left_stick_horz' : self.set_steering,
-            'right_stick_vert' : self.set_throttle,
+            'left_stick_vert' : self.set_throttle,
         }
 
 
@@ -784,7 +790,6 @@ class JoyStickPub(object):
                 message_data = (button, button_state, axis, axis_val)
                 self.socket.send_string( "%s %d %s %f" % message_data)
                 print("SENT", message_data)
-
 
 
 class JoyStickSub(object):

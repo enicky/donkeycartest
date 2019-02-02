@@ -8,7 +8,8 @@ class LED:
     def __init__(self, pin):
         self.pin = pin
 
-        GPIO.setmode(GPIO.BOARD)
+#        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.OUT)
         self.blink_changed = 0
         self.on = False
@@ -51,7 +52,8 @@ class RGB_LED:
         self.invert = invert_flag
         print('setting up gpio in board mode')
         GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BOARD)
+        #GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin_r, GPIO.OUT)
         GPIO.setup(self.pin_g, GPIO.OUT)
         GPIO.setup(self.pin_b, GPIO.OUT)
@@ -120,12 +122,21 @@ if __name__ == "__main__":
     print('output pin', pin_r, pin_g, pin_b, 'rate', rate)
 
     p = RGB_LED(pin_r, pin_g, pin_b)
-    
+
+
+ #   iter = 0
+ #   while iter < 100:
+ #       p.set_rgb(100, 0, 0)
+ #       time.sleep(0.1)
+ #       iter+= 1
+ 
+    print("start run stuff") 
     iter = 0
     while iter < 50:
         p.run(rate)
         time.sleep(0.1)
         iter += 1
+    print("finished run stuff ... start fading things")
     
     delay = 0.1
 
