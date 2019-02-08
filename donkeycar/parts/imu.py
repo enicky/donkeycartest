@@ -113,6 +113,7 @@ class SenseHatImu:
             #compass = self.sense.get_compass()
             #temperature = self.sense.get_temperature()
 
+            print(".....", orientation.values())
             self.accel['x'] = orientation.values()("roll")
             self.accel['y'] = orientation.values()("pitch")
             self.accel['z'] = orientation.values()("yaw")
