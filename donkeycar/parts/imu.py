@@ -113,14 +113,14 @@ class SenseHatImu:
             #compass = self.sense.get_compass()
             #temperature = self.sense.get_temperature()
 
-            print(".....", orientation.values())
-            self.accel['x'] = orientation.values()("roll")
-            self.accel['y'] = orientation.values()("pitch")
-            self.accel['z'] = orientation.values()("yaw")
+            print(".....", orientation["roll"])
+            self.accel['x'] = orientation["roll"]
+            self.accel['y'] = orientation["pitch"]
+            self.accel['z'] = orientation["yaw"]
 
-            self.gyro['x'] = gyroscope.values()("x")
-            self.gyro['y'] = gyroscope.values()("y")
-            self.gyro['z'] = gyroscope.values()("z")
+            self.gyro['x'] = gyroscope["x"]
+            self.gyro['y'] = gyroscope["y"]
+            self.gyro['z'] = gyroscope["z"]
         except Exception as e:
             print('failed to read imu!!')
             print(e)
