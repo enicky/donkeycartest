@@ -120,8 +120,9 @@ class SenseHatImu:
             self.gyro['x'] = gyroscope.values()("x")
             self.gyro['y'] = gyroscope.values()("y")
             self.gyro['z'] = gyroscope.values()("z")
-        except:
+        except Exception as e:
             print('failed to read imu!!')
+            print(e)
 
     def update(self):
         while self.on:
