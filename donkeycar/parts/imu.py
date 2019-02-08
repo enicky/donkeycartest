@@ -111,7 +111,7 @@ class SenseHatImu:
             orientation = self.sense.get_orientation()
             gyroscope = self.sense.get_gyroscope_raw()
             #compass = self.sense.get_compass()
-            
+
             temperature = self.sense.get_temperature()
 
             self.accel['x'] = orientation["roll"]
