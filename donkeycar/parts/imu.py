@@ -1,5 +1,5 @@
 import time
-from Adafruit_BNO055 import BNO055
+
 
 
 class Mpu6050:
@@ -49,6 +49,7 @@ class Mpu6050:
 
 class Bno055Imu:
     def __init__(self, serial_port='/dev/serial0', rst=18, poll_delay=0.0166):
+        from Adafruit_BNO055 import BNO055
         print("BNO Constructor {} => rst = {}".format(serial_port, rst))
         self.bno = BNO055.BNO055(serial_port=serial_port, rst=rst)
         self.accel = {'x': 0., 'y': 0., 'z': 0.}
@@ -93,12 +94,60 @@ class Bno055Imu:
         self.on = False
 
 
+class SenseHatImu:
+    def __init__(self, poll_delay=0.0166):
+        from sense_hat import SenseHat
+        print("init sensehat")
+        self.sense = SenseHat()
+        self.sense.set_imu_config(True, True, True)  # gyroscope only
+        self.accel = {'x': 0., 'y': 0., 'z': 0.}
+        self.gyro = {'x': 0., 'y': 0., 'z': 0.}
+        self.temp = 0.
+        self.poll_delay = poll_delay
+        self.on = True
+
+    def poll(self):
+        try:
+            orientation = self.sense.get_orientation()
+            gyroscope = self.sense.get_gyroscope_raw()
+            #compass = self.sense.get_compass()
+            #temperature = self.sense.get_temperature()
+
+            self.accel['x'] = orientation.values()("roll")
+            self.accel['y'] = orientation.values()("pitch")
+            self.accel['z'] = orientation.values()("yaw")
+
+            self.gyro['x'] = gyroscope.values()("x")
+            self.gyro['y'] = gyroscope.values()("y")
+            self.gyro['z'] = gyroscope.values()("z")
+        except:
+            print('failed to read imu!!')
+
+    def update(self):
+        while self.on:
+            self.poll()
+            time.sleep(self.poll_delay)
+
+    def run_threaded(self):
+        return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro[
+            'z'], self.temp
+
+    def run(self):
+        self.poll()
+        return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro[
+            'z'], self.temp
+
+    def shutdown(self):
+        self.on = False
+
+
 if __name__ == "__main__":
     iter = 0
 #    p = Mpu6050(
-    bno = Bno055Imu()
+    #bno = Bno055Imu()
+    imu = SenseHatImu()
     while iter < 100:
-        data = bno.run()
+        data = imu.run()
         print(data)
         time.sleep(0.1)
         iter += 1
