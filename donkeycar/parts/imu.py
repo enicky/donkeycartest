@@ -111,9 +111,9 @@ class SenseHatImu:
             orientation = self.sense.get_orientation()
             gyroscope = self.sense.get_gyroscope_raw()
             #compass = self.sense.get_compass()
-            #temperature = self.sense.get_temperature()
+            
+            temperature = self.sense.get_temperature()
 
-            print(".....", orientation["roll"])
             self.accel['x'] = orientation["roll"]
             self.accel['y'] = orientation["pitch"]
             self.accel['z'] = orientation["yaw"]
@@ -121,6 +121,7 @@ class SenseHatImu:
             self.gyro['x'] = gyroscope["x"]
             self.gyro['y'] = gyroscope["y"]
             self.gyro['z'] = gyroscope["z"]
+            self.temp = temperature
         except Exception as e:
             print('failed to read imu!!')
             print(e)
