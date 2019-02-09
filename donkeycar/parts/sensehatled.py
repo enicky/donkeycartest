@@ -10,6 +10,8 @@ class SenseHatLed:
         self.running = True
         self.on = True
         self.blink_changed = 0
+        self.last_blink_rate = 0
+
         print("init")
 
     def set_rgb(self,x, y, r, g, b):
@@ -21,18 +23,24 @@ class SenseHatLed:
 
     def toggle(self, condition):
         if condition:
+            print("Set RGB Leds : ", self.rgb)
             self.on = True
             self.set_rgb(0, 0, self.rgb[0], self.rgb[1], self.rgb[2])
         else:
+            print("Clear RGB Leds")
             self.sense.clear()
             self.on = False
 
     def run(self, blink_rate):
         if blink_rate != 1:
             print("blink rate : ", blink_rate)
+        if blink_rate != self.last_blink_rate:
+            self.last_blink_rate = blink_rate
+
         if blink_rate == 0:
             self.toggle(False)
         elif blink_rate > 0:
+            print("Set Blink Rate ", blink_rate)
             self.blink(blink_rate)
         else:
             self.toggle(True)
