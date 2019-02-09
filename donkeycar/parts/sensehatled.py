@@ -32,8 +32,9 @@ class SenseHatLed:
             self.on = False
 
     def run(self, blink_rate):
-        if blink_rate != 1:
+        if blink_rate != 1 and blink_rate != -1:
             print("blink rate : ", blink_rate)
+            
         if blink_rate != self.last_blink_rate:
             self.last_blink_rate = blink_rate
 
