@@ -40,7 +40,8 @@ class SenseHatLed:
         if blink_rate == 0:
             self.toggle(False)
         elif blink_rate > 0:
-            print("Set Blink Rate ", blink_rate)
+            if blink_rate != self.last_blink_rate:
+                print("Set Blink Rate ", blink_rate)
             self.blink(blink_rate)
         else:
             self.toggle(True)
