@@ -28,6 +28,7 @@ class SenseHatLed:
             self.on = False
 
     def run(self, blink_rate):
+        print("blink rate : ", blink_rate)
         if blink_rate == 0:
             self.toggle(False)
         elif blink_rate > 0:
