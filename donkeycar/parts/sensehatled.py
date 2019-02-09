@@ -19,6 +19,7 @@ class SenseHatLed:
         self.sense.set_pixel(x, y, self.rgb)
 
     def shutdown(self):
+        self.sense.clear()
         self.running = False
 
     def toggle(self, condition):
