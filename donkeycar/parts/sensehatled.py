@@ -34,7 +34,7 @@ class SenseHatLed:
             self.on = False
 
     def run(self, blink_rate, user_mode_status):
-        print('usermodestatus : ', user_mode_status)
+        
         if blink_rate != 1 and blink_rate != -1 and self.last_blink_rate != blink_rate:
             print("blink rate : ", blink_rate)
 
