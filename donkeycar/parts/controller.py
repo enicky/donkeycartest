@@ -847,6 +847,7 @@ class SenseHatJoystick:
         self.stick.direction_down = self.direction_down
         self.running = True
         self.mode = 'user'
+        self.led_status = 1
 
     def direction_up(self, event):
         if event.action != ACTION_RELEASED:
@@ -857,14 +858,21 @@ class SenseHatJoystick:
             print("down event triggered")
             if self.mode == 'user':
                 self.mode = 'local_angle'
+                self.led_status = 1
             elif self.mode == 'local_angle':
                 self.mode = 'local'
+                self.led_status = 2
             else:
                 self.mode = 'user'
+                self.led_status = 3
+
             print('new mode:', self.mode)
+            self.mode = 'user'
+
+
 
     def run_threaded(self, img_arr=None):
-        return self.mode
+        return self.mode, self.led_status
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
