@@ -866,6 +866,10 @@ class SenseHatJoystick:
                 self.mode = 'user'
                 self.led_status = 3
 
+            self.led_status += 1
+            if self.led_status == 4:
+                self.led_status = 1
+
             print('new mode:', self.mode)
             print("led_status : ", self.led_status)
             self.mode = 'user'
