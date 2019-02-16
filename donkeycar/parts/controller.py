@@ -867,11 +867,13 @@ class SenseHatJoystick:
                 self.led_status = 3
 
             print('new mode:', self.mode)
+            print("led_status : ", self.led_status)
             self.mode = 'user'
 
 
 
     def run_threaded(self, img_arr=None):
+        print("self.led : ", self.led_status)
         return self.mode, self.led_status
 
     def run(self, img_arr=None):
