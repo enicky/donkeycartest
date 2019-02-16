@@ -858,13 +858,13 @@ class SenseHatJoystick:
             print("down event triggered")
             if self.mode == 'user':
                 self.mode = 'local_angle'
-                self.led_status = 1
+                #self.led_status = 1
             elif self.mode == 'local_angle':
                 self.mode = 'local'
-                self.led_status = 2
+                #self.led_status = 2
             else:
                 self.mode = 'user'
-                self.led_status = 3
+                #self.led_status = 3
 
             self.led_status += 1
             if self.led_status == 4:
