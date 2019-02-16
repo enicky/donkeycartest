@@ -838,6 +838,7 @@ class JoyStickSub(object):
 
 from sense_hat import SenseHat, SenseStick, ACTION_RELEASED
 
+
 class SenseHatJoystick:
 
     def __init__(self):
@@ -845,6 +846,7 @@ class SenseHatJoystick:
         self.stick.direction_up = self.direction_up
         self.stick.direction_down = self.direction_down
         self.running = True
+        self.mode = 'user'
 
     def direction_up(self, event):
         if event.action != ACTION_RELEASED:
@@ -853,9 +855,16 @@ class SenseHatJoystick:
     def direction_down(self, event):
         if event.action != ACTION_RELEASED:
             print("down event triggered")
+            if self.mode == 'user':
+                self.mode = 'local_angle'
+            elif self.mode == 'local_angle':
+                self.mode = 'local'
+            else:
+                self.mode = 'user'
+            print('new mode:', self.mode)
 
     def run_threaded(self, img_arr=None):
-        return 0
+        return self.mode
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
@@ -868,7 +877,7 @@ class SenseHatJoystick:
 
         time.sleep(3)
 
-       
+
 if __name__ == "__main__":
     '''
     publish ps3 controller

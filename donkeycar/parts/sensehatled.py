@@ -32,7 +32,7 @@ class SenseHatLed:
             self.sense.clear()
             self.on = False
 
-    def run(self, blink_rate):
+    def run(self, blink_rate, user_mode):
         if blink_rate != 1 and blink_rate != -1 and self.last_blink_rate != blink_rate:
             print("blink rate : ", blink_rate)
 
@@ -47,6 +47,12 @@ class SenseHatLed:
             self.blink(blink_rate)
         else:
             self.toggle(True)
+        if user_mode == 'user':
+            self.sense.set_pixel(5,5,(0,255,0))
+        elif user_mode == 'local_angle':
+            self.sense.set_pixel(5, 5, (255, 255, 0))
+        else:
+            self.sense.set_pixel(5, 5, (0, 0, 255))
 
     def blink(self, rate):
         if time.time() - self.blink_changed > rate:
