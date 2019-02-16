@@ -836,6 +836,32 @@ class JoyStickSub(object):
         return ret
 
 
+from sense_hat import SenseHat, SenseStick, ACTION_RELEASED
+
+class SenseHatJoystick:
+
+    def __init__(self):
+        self.stick = SenseStick()
+        self.stick.direction_up = self.direction_up
+        self.stick.direction_down = self.direction_down
+        self.running = True
+
+    def direction_up(self, event):
+        if event.action != ACTION_RELEASED:
+            print("up event triggered")
+
+    def direction_down(self, event):
+        if event.action != ACTION_RELEASED:
+            print("down event triggered")
+
+    def run_threaded(self, img_arr=None):
+        return 0
+
+    def run(self, img_arr=None):
+        raise Exception("We expect for this part to be run with the threaded=True argument.")
+        return None
+
+
 if __name__ == "__main__":
     '''
     publish ps3 controller
