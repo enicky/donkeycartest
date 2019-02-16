@@ -861,7 +861,14 @@ class SenseHatJoystick:
         raise Exception("We expect for this part to be run with the threaded=True argument.")
         return None
 
+    def update(self):
+        '''
+        poll a joystick for input events
+        '''
 
+        time.sleep(3)
+
+       
 if __name__ == "__main__":
     '''
     publish ps3 controller
