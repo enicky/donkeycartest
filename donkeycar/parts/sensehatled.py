@@ -29,8 +29,6 @@ class SenseHatLed:
         self.set_rgb(0, 1, r, g, b)
         self.set_rgb(1, 0, r, g, b)
 
-    def
-
     def toggle(self, condition):
         if condition:
             # print("Set RGB Leds : ", self.rgb)
