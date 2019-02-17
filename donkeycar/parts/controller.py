@@ -118,7 +118,7 @@ class Joystick(object):
 
             if typev & 0x01:
                 button = self.button_map[number]
-                print(tval, value, typev, number, button, 'pressed')
+                #print(tval, value, typev, number, button, 'pressed')
                 if button:
                     self.button_states[button] = value
                     button_state = value
@@ -845,52 +845,55 @@ class SenseHatJoystick:
         self.stick = SenseStick()
         self.stick.direction_up = self.direction_up
         self.stick.direction_down = self.direction_down
+        self.stick.direction_middle = self.direction_middle
+
         self.running = True
-        self.mode = 'user'
-        self.led_status = 1
+
+        self.current_mode = 'user'
+        self.target_mode = 'user';
+        self.current_led_status = 1
+        self.target_led_status = 1
 
     def direction_up(self, event):
         if event.action != ACTION_RELEASED:
             print("up event triggered")
 
+    def direction_middle(self, event):
+        if event.action != ACTION_RELEASED:
+            print("Button pressed down => selected mode")
+            self.current_mode = self.target_mode
+            self.current_led_status = self.target_led_status
+
     def direction_down(self, event):
         if event.action != ACTION_RELEASED:
             print("down event triggered")
-            if self.mode == 'user':
-                self.mode = 'local_angle'
-                #self.led_status = 1
-            elif self.mode == 'local_angle':
-                self.mode = 'local'
-                #self.led_status = 2
+            if self.target_mode == 'user':
+                self.target_mode = 'local_angle'
+                self.target_led_status = 2
+            elif self.target_mode == 'local_angle':
+                self.target_mode = 'local'
+                self.target_led_status = 3
             else:
-                self.mode = 'user'
-                #self.led_status = 3
-            print("led_status1 : ", self.led_status)
-            self.led_status += 1
-            print("led_status2 : ", self.led_status)
-            if self.led_status == 4:
-                self.led_status = 1
+                self.target_mode = 'user'
+                self.target_led_status = 1
 
-            self.mode = "user"
-            print('new mode:', self.mode)
-            print("led_status3 : ", self.led_status)
-            self.mode = 'user'
+            print("target_led_status : ", self.target_led_status)
+            print("target_mode : ", self.target_mode)
 
-
+            print("current_led_status : ", self.current_led_status)
+            print("current_mode : ", self.current_mode)
 
     def run_threaded(self, img_arr=None):
-
-        return self.mode, self.led_status
+        return self.current_mode, self.current_led_status, self.target_mode, self.target_led_status
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
-        return None
+        return None, None, None, None
 
     def update(self):
         '''
         poll a joystick for input events
         '''
-
         time.sleep(3)
 
 
