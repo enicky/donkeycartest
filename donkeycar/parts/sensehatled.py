@@ -15,7 +15,7 @@ class SenseHatLed:
 
         print("init")
 
-    def set_rgb(self,x, y, r, g, b):
+    def set_rgb(self, x, y, r, g, b):
         self.rgb = (r, g, b)
         self.sense.set_pixel(x, y, self.rgb)
 
