@@ -67,7 +67,7 @@ class SenseHatLed:
         if target_mode == 1:
             self.sense.set_pixel(5, 6, (0, 255, 0))
         elif target_mode == 2:
-            self.Sense.set_pixel(5, 6, (255, 255, 0))
+            self.sense.set_pixel(5, 6, (255, 255, 0))
         elif target_mode == 3:
             self.sense.set_pixel(5, 6, (0, 0, 255))
 
