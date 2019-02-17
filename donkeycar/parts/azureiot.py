@@ -9,7 +9,7 @@ CONNECTION_STRING = "HostName=MyIoTSensorHub.azure-devices.net;DeviceId=car;Shar
 PROTOCOL = IoTHubTransportProvider.MQTT
 TEMPERATURE = 20.0
 HUMIDITY = 60
-MSG_TXT = "{\"temperature\": %.2f,\"humidity\": %.2f}"
+MSG_TXT = "{\"user_mode\": \"%s\",\"angle\": %f, \"throttle\": %f}"
 
 
 class AzureIoT:
@@ -23,12 +23,12 @@ class AzureIoT:
     def send_confirmation_callback(self, message, result, user_context):
         print("IoT Hub responded to message with status: %s" % (result))
 
-    def run(self):
+    def run(self, user_mode, angle, throttle):
         try:
             print("run")
             temperature = TEMPERATURE + (random.random() * 15)
             humidity = HUMIDITY + (random.random() * 20)
-            msg_txt_formatted = MSG_TXT % (temperature, humidity)
+            msg_txt_formatted = MSG_TXT % (user_mode, angle, throttle)
             message = IoTHubMessage(msg_txt_formatted)
 
             print("Sending message: %s" % message.get_string())
@@ -38,12 +38,11 @@ class AzureIoT:
             print("Unexpected error %s from IoTHub" % iothub_error)
             return
 
-    def run_threaded(self, img_arr=None):
+    def run_threaded(self, user_mode, angle, throttle):
         print("run threaded")
-
 
 
 if __name__ == "__main__":
     print("main has been started ... ")
     iot = AzureIoT()
-    iot.run()
+    iot.run('local', 0.121211121212, 0.987762636262632)
