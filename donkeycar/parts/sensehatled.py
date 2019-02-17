@@ -25,12 +25,12 @@ class SenseHatLed:
 
     def toggle(self, condition):
         if condition:
-            print("Set RGB Leds : ", self.rgb)
+            # print("Set RGB Leds : ", self.rgb)
             self.on = True
             self.set_rgb(0, 0, self.rgb[0], self.rgb[1], self.rgb[2])
         else:
-            print("Clear RGB Leds")
-            #self.sense.clear()
+            # print("Clear RGB Leds")
+            # self.sense.clear()
             self.set_rgb(0, 0, 0, 0, 0)
             self.on = False
 
