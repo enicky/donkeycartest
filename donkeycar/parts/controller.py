@@ -125,10 +125,10 @@ class Joystick(object):
 
             if typev & 0x02:
                 axis = self.axis_map[number]
-                print('axis triggered ... ', axis)
+                #print('axis triggered ... ', axis)
                 if axis:
                     fvalue = value / 32767.0
-                    print('fvalue : ', fvalue)
+                    #print('fvalue : ', fvalue)
                     self.axis_states[axis] = fvalue
                     axis_val = fvalue
 
