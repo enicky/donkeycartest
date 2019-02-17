@@ -843,30 +843,25 @@ class SenseHatJoystick:
 
     def __init__(self):
         self.stick = SenseStick()
-        self.stick.direction_up = self.direction_up
         self.stick.direction_down = self.direction_down
         self.stick.direction_middle = self.direction_middle
 
         self.running = True
 
         self.current_mode = 'user'
-        self.target_mode = 'user';
+        self.target_mode = 'user'
         self.current_led_status = 1
         self.target_led_status = 1
 
-    def direction_up(self, event):
-        if event.action != ACTION_RELEASED:
-            print("up event triggered")
-
     def direction_middle(self, event):
         if event.action != ACTION_RELEASED:
-            print("Button pressed down => selected mode")
+            # print("Button pressed down => selected mode")
             self.current_mode = self.target_mode
             self.current_led_status = self.target_led_status
 
     def direction_down(self, event):
         if event.action != ACTION_RELEASED:
-            print("down event triggered")
+            # print("down event triggered")
             if self.target_mode == 'user':
                 self.target_mode = 'local_angle'
                 self.target_led_status = 2
@@ -877,11 +872,11 @@ class SenseHatJoystick:
                 self.target_mode = 'user'
                 self.target_led_status = 1
 
-            print("target_led_status : ", self.target_led_status)
-            print("target_mode : ", self.target_mode)
+            # print("target_led_status : ", self.target_led_status)
+            # print("target_mode : ", self.target_mode)
 
-            print("current_led_status : ", self.current_led_status)
-            print("current_mode : ", self.current_mode)
+            # print("current_led_status : ", self.current_led_status)
+            # print("current_mode : ", self.current_mode)
 
     def run_threaded(self, img_arr=None):
         return self.current_mode, self.current_led_status, self.target_mode, self.target_led_status

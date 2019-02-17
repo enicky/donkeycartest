@@ -45,7 +45,7 @@ class SenseHatLed:
         if blink_rate == 0:
             self.toggle(False)
         elif blink_rate > 0:
-            #print("current blink rate : ", self.last_blink_rate, blink_rate)
+            # print("current blink rate : ", self.last_blink_rate, blink_rate)
             if blink_rate != self.last_blink_rate:
                 print("Set Blink Rate ", blink_rate)
             self.blink(blink_rate)
@@ -58,7 +58,7 @@ class SenseHatLed:
     def set_current_mode_status_leds(self, user_mode_status):
         if self.last_usermode_led_status != user_mode_status:
             self.last_usermode_led_status = user_mode_status
-            print("current led status : ", user_mode_status)
+            # print("current led status : ", user_mode_status)
 
         if user_mode_status == 1:
             self.sense.set_pixel(5, 5, (0, 255, 0))
