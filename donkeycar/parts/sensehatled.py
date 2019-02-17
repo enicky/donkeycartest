@@ -30,7 +30,8 @@ class SenseHatLed:
             self.set_rgb(0, 0, self.rgb[0], self.rgb[1], self.rgb[2])
         else:
             # print("Clear RGB Leds")
-            self.sense.clear()
+            #self.sense.clear()
+            self.set_rgb(0, 0, 0, 0, 0)
             self.on = False
 
     def run(self, blink_rate, user_mode_status, target_mode_status):
@@ -44,12 +45,19 @@ class SenseHatLed:
         if blink_rate == 0:
             self.toggle(False)
         elif blink_rate > 0:
+            print("current blink rate : ", self.last_blink_rate, blink_rate)
             if blink_rate != self.last_blink_rate:
                 print("Set Blink Rate ", blink_rate)
             self.blink(blink_rate)
         else:
             self.toggle(True)
 
+
+
+        self.set_current_mode_status_leds(user_mode_status)
+        self.set_target_mode_status_leds(target_mode_status)
+
+    def set_current_mode_status_leds(self, user_mode_status):
         if self.last_usermode_led_status != user_mode_status:
             self.last_usermode_led_status = user_mode_status
             print("current led status : ", user_mode_status)
@@ -60,8 +68,6 @@ class SenseHatLed:
             self.sense.set_pixel(5, 5, (255, 255, 0))
         elif user_mode_status == 3:
             self.sense.set_pixel(5, 5, (0, 0, 255))
-
-        self.set_target_mode_status_leds(target_mode_status)
 
     def set_target_mode_status_leds(self, target_mode):
         if target_mode == 1:
