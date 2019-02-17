@@ -23,15 +23,24 @@ class SenseHatLed:
         self.sense.clear()
         self.running = False
 
+    def set_rgb_values(self, r=0, g=0, b=0):
+        self.set_rgb(0, 0, r, g, b)
+        self.set_rgb(1, 1, r, g, b)
+        self.set_rgb(0, 1, r, g, b)
+        self.set_rgb(1, 0, r, g, b)
+
+    def
+
     def toggle(self, condition):
         if condition:
             # print("Set RGB Leds : ", self.rgb)
             self.on = True
-            self.set_rgb(0, 0, self.rgb[0], self.rgb[1], self.rgb[2])
+            self.set_rgb_values(self.rgb[0], self.rgb[1], self.rgb[2])
+
         else:
             # print("Clear RGB Leds")
             # self.sense.clear()
-            self.set_rgb(0, 0, 0, 0, 0)
+            self.set_rgb()
             self.on = False
 
     def run(self, blink_rate, user_mode_status, target_mode_status):
