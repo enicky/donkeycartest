@@ -118,7 +118,7 @@ class Joystick(object):
 
             if typev & 0x01:
                 button = self.button_map[number]
-                #print(tval, value, typev, number, button, 'pressed')
+                print(tval, value, typev, number, button, 'pressed')
                 if button:
                     self.button_states[button] = value
                     button_state = value
