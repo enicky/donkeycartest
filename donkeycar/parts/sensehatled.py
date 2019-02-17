@@ -38,7 +38,7 @@ class SenseHatLed:
         else:
             # print("Clear RGB Leds")
             # self.sense.clear()
-            self.set_rgb()
+            self.set_rgb_values()
             self.on = False
 
     def run(self, blink_rate, user_mode_status, target_mode_status):
